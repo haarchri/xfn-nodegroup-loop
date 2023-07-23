@@ -1,0 +1,10 @@
+apiVersion: meta.pkg.crossplane.io/v1alpha1
+kind: Function
+metadata:
+  name: xfn-nodegroup-loop
+  annotations:
+    meta.crossplane.io/maintainer: haarchri
+    meta.crossplane.io/source: github.com/haarchri/xfn-nodegroup-loop
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/description: |
+      A Composition Function that creates provider AWS NodeGroups for every given entry.

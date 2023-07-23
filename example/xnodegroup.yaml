@@ -1,0 +1,26 @@
+apiVersion: aws.haarchri.io/v1alpha1
+kind: XNodeGroups
+metadata:
+  name: sample
+spec:
+  region: eu-central-1
+  clusterName: platform-ref-aws3-5v9gj-pgm5m
+  nodeRoleArn: arn:aws:iam::123456789101:role/platform-ref-aws3-5v9gj-5b95t
+  subnetIds:
+    - subnet-01b461ac67338c5b0
+    - subnet-0a59082b6f593a290
+  nodeGroups:
+    - name: worker-nodes
+      instanceTypes:
+        - m5a.large
+      scalingConfig:
+        - minSize: 2
+          desiredSize: 3
+          maxSize: 5
+    - name: gpu-nodes
+      instanceTypes:
+        - g5a.large
+      scalingConfig:
+        - minSize: 2
+          desiredSize: 3
+          maxSize: 5

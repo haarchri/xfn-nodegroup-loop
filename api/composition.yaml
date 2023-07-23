@@ -1,0 +1,15 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xnodegroups.aws.haarchri.io
+spec:
+  writeConnectionSecretsToNamespace: upbound-system
+  compositeTypeRef:
+    apiVersion: aws.haarchri.io/v1alpha1
+    kind: XNodeGroups
+  resources: []
+  functions:
+    - name: xfn-nodegroup-loop
+      type: Container
+      container:
+        image: haarchri/xfn-nodegroup-loop:v0.6.0

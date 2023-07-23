@@ -1,0 +1,108 @@
+apiVersion: apiextensions.crossplane.io/v1alpha1
+desired:
+  composite:
+    connectionDetails: null
+    resource:
+      apiVersion: aws.haarchri.io/v1alpha1
+      kind: XNodeGroup
+      metadata:
+        name: xnodegroup
+      spec:
+        clusterName: platform-ref-aws3-5v9gj-pgm5m
+        nodeGroups:
+        - instanceTypes:
+          - m5a.large
+          name: worker-nodes
+          scalingConfig:
+          - desiredSize: 3
+            maxSize: 5
+            minSize: 2
+        - instanceTypes:
+          - g5a.large
+          name: gpu-nodes
+          scalingConfig:
+          - desiredSize: 3
+            maxSize: 5
+            minSize: 2
+        nodeRoleArn: arn:aws:iam::123456789101:role/platform-ref-aws3-5v9gj-5b95t
+        region: eu-central-1
+        subnetIds:
+        - subnet-01b461ac67338c5b0
+        - subnet-0a59082b6f593a290
+  resources:
+  - name: worker-nodes
+    resource:
+      apiVersion: eks.aws.upbound.io/v1beta1
+      kind: NodeGroup
+      metadata:
+        creationTimestamp: null
+        name: xnodegroup-a13s6
+      spec:
+        forProvider:
+          clusterName: platform-ref-aws3-5v9gj-pgm5m
+          instanceTypes:
+          - m5a.large
+          nodeRoleArn: arn:aws:iam::123456789101:role/platform-ref-aws3-5v9gj-5b95t
+          region: eu-central-1
+          scalingConfig:
+          - desiredSize: 3
+            maxSize: 5
+            minSize: 2
+          subnetIds:
+          - subnet-01b461ac67338c5b0
+          - subnet-0a59082b6f593a290
+      status:
+        atProvider: {}
+  - name: gpu-nodes
+    resource:
+      apiVersion: eks.aws.upbound.io/v1beta1
+      kind: NodeGroup
+      metadata:
+        creationTimestamp: null
+        name: xnodegroup-7uzow
+      spec:
+        forProvider:
+          clusterName: platform-ref-aws3-5v9gj-pgm5m
+          instanceTypes:
+          - g5a.large
+          nodeRoleArn: arn:aws:iam::123456789101:role/platform-ref-aws3-5v9gj-5b95t
+          region: eu-central-1
+          scalingConfig:
+          - desiredSize: 3
+            maxSize: 5
+            minSize: 2
+          subnetIds:
+          - subnet-01b461ac67338c5b0
+          - subnet-0a59082b6f593a290
+      status:
+        atProvider: {}
+kind: FunctionIO
+observed:
+  composite:
+    resource:
+      apiVersion: aws.haarchri.io/v1alpha1
+      kind: XNodeGroup
+      metadata:
+        name: xnodegroup
+      spec:
+        clusterName: platform-ref-aws3-5v9gj-pgm5m
+        nodeGroups:
+        - instanceTypes:
+          - m5a.large
+          name: worker-nodes
+          scalingConfig:
+          - desiredSize: 3
+            maxSize: 5
+            minSize: 2
+        - instanceTypes:
+          - g5a.large
+          name: gpu-nodes
+          scalingConfig:
+          - desiredSize: 3
+            maxSize: 5
+            minSize: 2
+        nodeRoleArn: arn:aws:iam::123456789101:role/platform-ref-aws3-5v9gj-5b95t
+        region: eu-central-1
+        subnetIds:
+        - subnet-01b461ac67338c5b0
+        - subnet-0a59082b6f593a290

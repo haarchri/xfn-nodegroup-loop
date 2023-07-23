@@ -1,0 +1,75 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xnodegroups.aws.haarchri.io
+spec:
+  group: aws.haarchri.io
+  names:
+    kind: XNodeGroups
+    plural: xnodegroups
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            description: NodeGroup configuration parameters.
+            properties:
+              subnetIds:
+                description: Identifiers of EC2 Subnets to associate with the
+                  EKS Node Group. Amazon EKS managed node groups can be launched
+                  in both public and private subnets. If you plan to deploy load
+                  balancers to a subnet, the private subnet must have tag kubernetes.io/role/internal-elb,
+                  the public subnet must have tag kubernetes.io/role/elb.
+                items:
+                  type: string
+                type: array
+              region:
+                type: string
+              clusterName:
+                description: 100 characters in length. Must begin with an alphanumeric
+                  character, and must only contain alphanumeric characters, dashes
+                  and underscores (^[0-9A-Za-z][A-Za-z0-9\-_]+$).
+                type: string
+              nodeRoleArn:
+                description: Amazon Resource Name (ARN) of the IAM Role that
+                  provides permissions for the EKS Node Group.
+                type: string
+              nodeGroups:
+                type: array
+                description: A list of NodeGroups that will created to a cluster.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: Resource Name for EKS NodeGroup
+                      type: string
+                    instanceTypes:
+                      description: List of instance types associated with the EKS Node
+                      items:
+                        type: string
+                      type: array
+                    scalingConfig:
+                      description: Configuration block with scaling settings. Detailed
+                        below.
+                      items:
+                        properties:
+                          desiredSize:
+                            description: Desired number of worker nodes.
+                            type: number
+                          maxSize:
+                            description: Maximum number of worker nodes.
+                            type: number
+                          minSize:
+                            description: Minimum number of worker nodes.
+                            type: number
+                        required:
+                        - desiredSize
+                        - maxSize
+                        - minSize
+                        type: object
+                      type: array
